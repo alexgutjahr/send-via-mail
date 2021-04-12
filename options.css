@@ -1,0 +1,33 @@
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    font-size: 70%;
+}
+
+.error {
+    font-size: 70%;
+    color: red;
+}
+
+.buttons {
+    margin-top: 25px;
+}
+
+.btn-link {
+    color: red;
+    text-decoration: none;
+    outline: none;
+}
