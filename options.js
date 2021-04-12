@@ -26,7 +26,7 @@ reset.addEventListener("click", () => {
 
 function invalid(email) {
   if (email.length == 0) {
-    hint.innerText = "Email must not be empty.";
+    hint.textContent = "Email must not be empty.";
     return true;
   }
 

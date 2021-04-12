@@ -1,4 +1,4 @@
-# Link 2 Mail
+![L2M Logo](images/plane.svg?raw=true&sanitize=true)
 
 Link 2 Mail (L2M) is a dead-simple extension for Google Chrome, for sending links to your mailbox.
 
