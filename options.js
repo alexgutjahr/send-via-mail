@@ -1,40 +1,54 @@
-let save = document.getElementById("save");
-let reset = document.getElementById("reset");
-let email = document.getElementById("email");
-let hint = document.getElementById("hint");
+const save = document.getElementById("save");
+const reset = document.getElementById("reset");
+const email = document.getElementById("email");
+const hint = document.getElementById("hint");
 
-chrome.storage.sync.get("email", ({ email }) => {
-  document.getElementById("email").value = email;
+// Pre-populate the email address with the stored one.
+chrome.storage.sync.get("email", ({ storedEmail }) => {
+  if (storedEmail !== undefined) {
+    email.value = storedEmail;
+  }
 });
 
 save.addEventListener("click", () => {
-  if (invalid(email.value)) {
-    return;
-  }
+  let validation = validate(email.value);
 
-  chrome.storage.sync.set({ email: email.value }, () => {
-    save.textContent = "Saved 🙌";
-    save.classList.remove("btn-outline-dark");
-    save.classList.add("btn-outline-success");
-  });
+  if (validation.result == "failure") {
+    hint.textContent = validation.message;
+  } else {
+    hint.textContent = "";
+    chrome.storage.sync.set({ email: email.value }, () => {
+      save.textContent = "Saved 🙌";
+      save.classList.remove("btn-outline-dark");
+      save.classList.add("btn-outline-success");
+      setTimeout(function () {
+        save.textContent = "Save";
+        save.classList.add("btn-outline-dark");
+        save.classList.remove("btn-outline-success");
+      }, 2000);
+    });
+  }
+});
+
+email.addEventListener("input", () => {
+  hint.textContent = "";
 });
 
 reset.addEventListener("click", () => {
-  chrome.storage.sync.set({ email: null });
-  location.reload();
+  chrome.storage.sync.clear(() => {
+    location.reload();
+  });
 });
 
-function invalid(email) {
+function validate(email) {
   if (email.length == 0) {
-    hint.textContent = "Email must not be empty.";
-    return true;
+    return { result: "failure", message: "Email must not be empty." };
   }
 
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if (!regex.test(email)) {
-    hint.textContent = "Email format is not correct, please double-check.";
-    return true;
+    return { result: "failure", message: "Email format is not correct, please double-check." };
   }
 
-  return false;
+  return { result: "success" };
 }

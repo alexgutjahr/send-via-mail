@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <meta charset="utf-8" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -15,31 +15,42 @@
     />
     <link rel="stylesheet" href="options.css" />
   </head>
-  <body>
-    <div class="container">
-      <img alt="Link 2 Mail" width="200px" src="images/plane.svg" class="logo" />
-      <div class="settings">
-        <h2>Settings</h2>
-        <hr />
-        <label for="email" class="form-label">Default Email Address</label>
-        <p>
-          Configure the default (destination) email address used by the extension. This is only
-          stored locally on your device and will never be shared with anyone.
-        </p>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="john.doe@example.com"
-          class="form-control"
-        />
-        <div id="hint" class="error form-text"></div>
-        <div class="buttons">
-          <button id="save" type="button" class="btn btn-lg btn-outline-dark">Save</button>
-          <button id="reset" type="button" class="btn btn-lg btn-link">Reset</button>
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <div class="container">
+        <img alt="Send via Mail logo" width="200px" src="images/plane.svg" class="logo" />
+        <div class="settings">
+          <h1>Settings</h1>
+          <hr />
+          <p>
+            All settings are synced to any Chrome browser that you are logged into (provided that
+            sync has been enabled).
+          </p>
+          <label for="email" class="form-label">Default Email Address</label>
+          <p>Configure the default receiver email address for new mails.</p>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="john.doe@example.com"
+            class="form-control"
+          />
+          <div id="hint" class="error form-text"></div>
+          <div class="buttons">
+            <button id="save" type="button" class="btn btn-outline-dark">Save</button>
+            <button id="reset" type="button" class="btn btn-link">Reset</button>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container">
+        <span class="text-muted"
+          >Send via Mail is Open-source Software and available on
+          <a href="https://github.com/alexgutjahr/send-via-mail">GitHub</a></span
+        >
+      </div>
+    </footer>
   </body>
   <script src="options.js"></script>
 </html>

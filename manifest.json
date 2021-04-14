@@ -1,15 +1,15 @@
 {
-  "name": "Link 2 Mail",
-  "description": "Send Page Links to Your Mailbox",
-  "version": "1.0",
+  "name": "Send via Mail",
+  "description": "Send Pages or Links via Mail",
+  "version": "1.1",
   "manifest_version": 3,
   "author": "Alex Gutjahr",
-  "homepage_url": "https://alexgutjahr.com",
+  "homepage_url": "https://github.com/alexgutjahr/send-via-mail",
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["activeTab", "contextMenus", "storage"],
   "action": {
     "default_icon": {
       "16": "/images/icon_16x16.png",
