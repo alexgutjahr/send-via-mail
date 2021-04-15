@@ -1,4 +1,4 @@
-![Send via Mail logo](images/plane.svg?raw=true&sanitize=true)
+![Send via Mail logo](src/images/plane.svg?raw=true&sanitize=true)
 
 Send via Mail is a dead-simple extension for Google Chrome, for sending links to your mailbox.
 It can be directly installed from the [Chrome Web Store](https://chrome.google.com/webstore/detail/link-2-mail/odjigmolandcfedhfbcgbdblookpdmgn).
@@ -23,3 +23,4 @@ You might have to configure handling of `mailto` URLs as is described [here](htt
 Yes. Send via Mail delegates the actual handling to the local email client.
 All the settings are only synced with Chrome (given that sync has been enabled),
 and never shared with anyone else.
+
