@@ -4,9 +4,9 @@ const email = document.getElementById("email");
 const hint = document.getElementById("hint");
 
 // Pre-populate the email address with the stored one.
-chrome.storage.sync.get("email", ({ storedEmail }) => {
-  if (storedEmail !== undefined) {
-    email.value = storedEmail;
+chrome.storage.sync.get("email", (stored) => {
+  if (stored.email !== undefined) {
+    email.value = stored.email;
   }
 });
 

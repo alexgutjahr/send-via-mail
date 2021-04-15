@@ -14,9 +14,9 @@ You might have to configure handling of `mailto` URLs as is described [here](htt
 
 ## What permissions does it require?
 
-- "activeTab": Access the active tab's title and URL.
-- "contextMenus": Allow using the extension from a context menu action.
-- "storage": Store the default email address.
+- `activeTab`: Access the active tab's title and URL.
+- `contextMenus`: Allow using the extension from a context menu action.
+- `storage`: Store the default email address.
 
 ## Is it secure?
 

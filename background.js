@@ -1,5 +1,5 @@
 // Initialize the context menu.
-const parent = chrome.contextMenus.create({
+chrome.contextMenus.create({
   id: "menu",
   title: "Send via Mail",
   contexts: ["link", "page"],
