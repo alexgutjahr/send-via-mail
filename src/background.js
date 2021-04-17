@@ -1,3 +1,9 @@
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+  if (reason === "install") {
+    chrome.runtime.openOptionsPage();
+  }
+});
+
 // Initialize the context menu.
 chrome.contextMenus.create({
   id: "menu",
