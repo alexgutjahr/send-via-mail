@@ -1,37 +1,35 @@
 const save = document.getElementById("save");
 const reset = document.getElementById("reset");
 const email = document.getElementById("email");
-const hint = document.getElementById("hint");
+const prefix = document.getElementById("prefix");
 
-// Pre-populate the email address with the stored one.
-chrome.storage.sync.get("email", (stored) => {
-  if (stored.email !== undefined) {
-    email.value = stored.email;
+// Populate the settings with the previously stored values.
+chrome.storage.sync.get(["email", "prefix"], (items) => {
+  if (items.email !== undefined) {
+    email.value = items.email;
   }
-});
-
-save.addEventListener("click", () => {
-  let validation = validate(email.value);
-
-  if (validation.result == "failure") {
-    hint.textContent = validation.message;
-  } else {
-    hint.textContent = "";
-    chrome.storage.sync.set({ email: email.value }, () => {
-      save.textContent = "Saved 🙌";
-      save.classList.remove("btn-outline-dark");
-      save.classList.add("btn-outline-success");
-      setTimeout(function () {
-        save.textContent = "Save";
-        save.classList.add("btn-outline-dark");
-        save.classList.remove("btn-outline-success");
-      }, 2000);
-    });
+  if (items.prefix !== undefined) {
+    prefix.value = items.prefix;
   }
 });
 
 email.addEventListener("input", () => {
-  hint.textContent = "";
+  document.getElementById("email-hint").textContent = "";
+});
+
+prefix.addEventListener("input", () => {
+  document.getElementById("prefix-hint").textContent = "";
+});
+
+save.addEventListener("click", () => {
+  let validation = check(email.value, prefix.value);
+
+  if (validation.result === "success") {
+    store(email.value.trim(), prefix.value.trim());
+  } else {
+    let hint = document.getElementById(`${validation.setting}-hint`);
+    hint.textContent = validation.message;
+  }
 });
 
 reset.addEventListener("click", () => {
@@ -40,15 +38,47 @@ reset.addEventListener("click", () => {
   });
 });
 
-function validate(email) {
-  if (email.length == 0) {
-    return { result: "failure", message: "Email must not be empty." };
+function check(email, prefix) {
+  // Email validation
+  if (email.length > 0) {
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!regex.test(email)) {
+      return {
+        result: "failure",
+        setting: "email",
+        message: "Email format is not correct, please double-check.",
+      };
+    }
   }
 
-  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (!regex.test(email)) {
-    return { result: "failure", message: "Email format is not correct, please double-check." };
+  // Prefix validation
+  if (prefix.length > 60) {
+    return {
+      result: "failure",
+      setting: "prefix",
+      message: "Make sure the prefix does not exceed 60 characters.",
+    };
   }
 
   return { result: "success" };
+}
+
+function store(email, prefix) {
+  save.disabled = true;
+  chrome.storage.sync.set({ email: email, prefix: prefix }, () => {
+    alert("Settings saved");
+    save.disabled = false;
+  });
+}
+
+function alert(text) {
+  let note = document.getElementById("note");
+  note.textContent = text;
+  let effect = new KeyframeEffect(note, [{ opacity: 1 }, { opacity: 0 }], {
+    duration: 2500,
+    fill: "forwards",
+  });
+
+  let animation = new Animation(effect, document.timeline);
+  animation.play();
 }

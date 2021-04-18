@@ -1,41 +1,61 @@
 :root {
-    --red-color: #ee2d35;
+  --red-color: #ee2d35;
+  --green-color: #38b000;
+  --bs-success: var(--green-color);
+  --bs-danger: var(--red-color);
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    padding-top: 25px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  padding-top: 25px;
 }
 
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .btn-link {
-    color: var(--red-color);
-    outline: none;
-    text-decoration: none;
+  color: var(--red-color);
+  outline: none;
+  text-decoration: none;
 }
 
-.buttons {
-    margin-top: 10px;
+.btn-outline-success {
+  border-color: var(--green-color);
+  color: var(--green-color);
+}
+
+.btn-outline-success:hover {
+  background-color: var(--green-color);
+  border-color: var(--green-color);
+  color: white;
 }
 
 .container {
-    margin: 0 auto;
-    max-width: 680px;
+  margin: 0 auto;
+  max-width: 680px;
 }
 
 .error {
-    color: var(--red-color);
+  color: var(--red-color);
+  height: 25px;
+  margin-bottom: 5px;
 }
 
 .logo {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
-#hint {
-    height: 25px;
+#note {
+  border: 1px solid var(--green-color);
+  border-radius: 0.25rem;
+  color: white;
+  background-color: var(--green-color);
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }

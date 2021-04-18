@@ -17,11 +17,12 @@
     <link rel="stylesheet" href="options.css" />
   </head>
   <body class="d-flex flex-column h-100">
+    <div id="note"></div>
     <main class="flex-shrink-0">
       <div class="container">
         <img alt="Send via Mail logo" width="200px" src="images/plane.svg" class="logo" />
         <div class="settings">
-          <h1>Settings</h1>
+          <h2>Settings</h2>
           <hr />
           <p>
             All settings are synced to any Chrome browser that you are logged into (provided that
@@ -36,9 +37,22 @@
             placeholder="john.doe@example.com"
             class="form-control"
           />
-          <div id="hint" class="error form-text"></div>
+          <div id="email-hint" class="error form-text"></div>
+          <label for="prefix" class="form-label">Subject Prefix</label>
+          <p>
+            A string that is preprended to the email's subject (allowing for easy filtering in mail
+            clients).
+          </p>
+          <input
+            type="text"
+            name="prefix"
+            id="prefix"
+            placeholder="[Send via Mail]"
+            class="form-control"
+          />
+          <div id="prefix-hint" class="error form-text"></div>
           <div class="buttons">
-            <button id="save" type="button" class="btn btn-outline-dark">Save</button>
+            <button id="save" type="button" class="btn btn-outline-success">Save</button>
             <button id="reset" type="button" class="btn btn-link">Reset</button>
           </div>
         </div>
