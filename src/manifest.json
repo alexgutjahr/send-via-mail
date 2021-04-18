@@ -1,7 +1,7 @@
 {
   "name": "Send via Mail",
   "description": "Send Pages or Links via Mail",
-  "version": "1.3",
+  "version": "1.4",
   "manifest_version": 3,
   "author": "Alex Gutjahr",
   "homepage_url": "https://github.com/alexgutjahr/send-via-mail",

@@ -13,16 +13,8 @@ chrome.contextMenus.create({
 
 // Handle clicks on the extension icon in the browser bar.
 chrome.action.onClicked.addListener((tab) => {
-  mailto(encodeURIComponent(tab.title), tab.url);
+  sendPage(tab.title, tab.url);
 });
-
-function subject(prefix, title) {
-  if (prefix) {
-    return `${prefix} ${title}`;
-  }
-
-  return title;
-}
 
 /*
  * Handle clicks in the context menu.
@@ -31,19 +23,39 @@ function subject(prefix, title) {
  */
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.linkUrl) {
-    mailto(info.linkUrl, info.linkUrl);
+    sendLink(info.linkUrl);
   } else {
-    mailto(encodeURIComponent(tab.title), tab.url);
+    sendPage(tab.title, tab.url);
   }
 });
 
-function mailto(title, body) {
+function sendPage(title, url) {
+  mailto(title, url);
+}
+
+function sendLink(url) {
+  mailto(url, url);
+}
+
+function makeSubject(prefix, title) {
+  if (prefix) {
+    return encodeURIComponent(prefix + " " + title);
+  }
+
+  return encodeURIComponent(title);
+}
+
+function mailto(title, content) {
   chrome.storage.sync.get(["email", "prefix"], (items) => {
-    let email = items.email || "";
+    let to = encodeURIComponent(items.email || "");
+    let subject = makeSubject(items.prefix, title);
+    let body = encodeURIComponent(content);
+
+    let url = `mailto:${to}?subject=${subject}&body=${body}`;
 
     chrome.tabs.create({
       active: true,
-      url: `mailto:${email}?subject=${subject(items.prefix, title)}&body=${body}`,
+      url: url,
     });
   });
 }
