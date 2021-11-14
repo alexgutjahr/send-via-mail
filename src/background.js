@@ -49,7 +49,10 @@ function mailto(title, content) {
   chrome.storage.sync.get(["email", "prefix"], (items) => {
     let to = encodeURIComponent(items.email || "");
     let subject = makeSubject(items.prefix, title);
-    let body = encodeURIComponent(content);
+    let body =
+      title === content
+        ? encodeURIComponent(content)
+        : `${encodeURIComponent(title)}%0D%0A${encodeURIComponent(content)}`;
 
     let url = `mailto:${to}?subject=${subject}&body=${body}`;
 
